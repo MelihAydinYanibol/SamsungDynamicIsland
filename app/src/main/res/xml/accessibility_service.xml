@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Window info is only used to notice the notification panel (a full-height system window) so the
+    island can get out of its way. The service never reads text or other screen content.
+-->
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accessibilityEventTypes="typeWindowStateChanged"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowsChanged"
     android:accessibilityFeedbackType="feedbackGeneric"
-    android:accessibilityFlags="flagDefault"
-    android:canRetrieveWindowContent="false"
+    android:accessibilityFlags="flagRetrieveInteractiveWindows"
+    android:canRetrieveWindowContent="true"
     android:description="@string/accessibility_description"
     android:isAccessibilityTool="false"
-    android:notificationTimeout="200"
+    android:notificationTimeout="100"
     android:settingsActivity="io.github.melihaydinyanibol.dynamicisland.ui.MainActivity" />

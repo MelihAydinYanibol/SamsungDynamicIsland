@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dinamik Ada</string>
+    <string name="accessibility_label">Dinamik Ada katmanı</string>
+    <string name="accessibility_description">Ön kameranın etrafında bildirimleri, medyayı, aramaları, zamanlayıcıları ve şarj durumunu gösteren bir Dinamik Ada çizer. Bildirim paneli açıldığında gizlenebilmek için yalnızca sistem pencerelerinin boyutuna bakar; ekran içeriğini asla okumaz.</string>
+    <string name="notification_listener_label">Dinamik Ada bildirimleri</string>
+
+    <string name="device_supported">%1$s (%2$s) · özel ayarlı profil</string>
+    <string name="device_generic">%1$s · genel profil (kamera deliği çalışma anında algılanır)</string>
+    <string name="version_format">Sürüm %1$s</string>
+
+    <string name="section_preview">Önizleme</string>
+    <string name="section_permissions">İzinler</string>
+    <string name="section_popups">Samsung açılır bildirimlerini değiştir</string>
+    <string name="section_features">Özellikler</string>
+    <string name="section_behaviour">Davranış</string>
+    <string name="section_layout">Konum ve boyut</string>
+    <string name="section_try">Dene</string>
+    <string name="section_tips">Samsung ipuçları</string>
+    <string name="preview_hint">Tekrar oynatmak için önizlemeye dokunun</string>
+
+    <string name="perm_accessibility">Ada katmanı (Erişilebilirlik)</string>
+    <string name="perm_notifications">Bildirim erişimi</string>
+    <string name="perm_calls">Arama düğmeleri (Cevapla / Kapat)</string>
+    <string name="perm_battery">Kısıtlamasız pil</string>
+    <string name="perm_granted">Etkin</string>
+    <string name="perm_missing">Gerekli</string>
+    <string name="perm_optional">Önerilir</string>
+    <string name="perm_open">Ayarları aç</string>
+    <string name="perm_allow">İzin ver</string>
+
+    <string name="popups_body">One UI, adanın üstünde kendi açılır bildirimlerini gösterir. Android bunların kapatılmasına yalnızca bilgisayardan ADB ile bir kez verilen izinden sonra olanak tanır. Aşağıdaki komutu bir kez çalıştırın, ardından seçeneği açın. Ada durduğunda orijinal ayarınız geri yüklenir.</string>
+    <string name="popups_ready">İzin verildi · ada açılır bildirimlerin yerini alabilir</string>
+    <string name="popups_needs_grant">İzin yok · aşağıdaki komutu bir kez çalıştırın</string>
+    <string name="popups_copy">Komutu kopyala</string>
+    <string name="popups_copied">Komut kopyalandı</string>
+
+    <string name="pref_enabled">Dinamik Ada\'yı göster</string>
+    <string name="pref_replace_popups">Sistem açılır bildirimlerinin yerini al</string>
+    <string name="pref_notifications">Bildirim uyarıları</string>
+    <string name="pref_media">Şimdi çalıyor</string>
+    <string name="pref_live">Canlı etkinlikler (aramalar, zamanlayıcılar, navigasyon, indirmeler)</string>
+    <string name="pref_charging">Şarj ve pil uyarıları</string>
+    <string name="pref_ringer">Ses modu değişiklikleri</string>
+    <string name="pref_privacy">Kamera ve mikrofon göstergesi</string>
+    <string name="pref_keep_idle_pill">Boştayken hapı göster (kameraya gizlenmek yerine)</string>
+    <string name="pref_hide_shade">Bildirim paneli açıkken gizle</string>
+    <string name="pref_hide_fullscreen">Tam ekran uygulamalarda gizle</string>
+    <string name="pref_hide_landscape">Yatay modda gizle</string>
+    <string name="pref_haptics">Dokunsal geri bildirim</string>
+
+    <string name="pref_offset_x">Yatay kaydırma</string>
+    <string name="pref_offset_y">Dikey kaydırma</string>
+    <string name="pref_scale">Boyut</string>
+    <string name="pref_width_scale">Genişlik</string>
+    <string name="pref_alert_seconds">Uyarı süresi</string>
+    <string name="value_dp">%1$d dp</string>
+    <string name="value_percent">%%%1$d</string>
+    <string name="value_seconds">%1$d sn</string>
+
+    <string name="test_notification">Test bildirimi</string>
+    <string name="test_charging">Şarjı test et</string>
+    <string name="test_timer">Canlı zamanlayıcı</string>
+    <string name="test_stop">Testleri temizle</string>
+    <string name="test_notification_title">Dinamik Ada\'nızdan merhaba</string>
+    <string name="test_notification_text">Açmak için dokunun, kapatmak için yukarı kaydırın, uygulamaya geçmek için basılı tutun.</string>
+    <string name="test_timer_title">Test zamanlayıcısı</string>
+    <string name="enable_overlay_first">Önce ada katmanını etkinleştirin</string>
+    <string name="demo_track_title">Gece Yolculuğu</string>
+    <string name="demo_track_artist">Ada Oturumları</string>
+
+    <string name="tips_body">• Android 13 ve üzeri, dışarıdan yüklenen uygulamalarda Erişilebilirliği engeller: Uygulama bilgisi → ⋮ → Kısıtlanmış ayarlara izin ver\'e dokunun, sonra katmanı etkinleştirin.\n• Ayarlar → Pil → Arka plan kullanım sınırları → Dinamik Ada\'yı “Asla uyumayan uygulamalar”a ekleyin.\n• ADB izni olmadan da açılır bildirimleri uygulama bazında kapatabilirsiniz: Ayarlar → Bildirimler → Uygulama bildirimleri → uygulamayı seçin → Açılır pencere kapalı.\n• Hareketler: genişletmek için dokunun, uygulamayı açmak için basılı tutun, daraltmak için yukarı kaydırın, etkinlikler arasında geçmek için yana kaydırın veya baloncuğa dokunun.</string>
+
+    <string name="island_percent">%%%1$d</string>
+    <string name="island_charging">Şarj oluyor</string>
+    <string name="island_battery_full">Tamamen şarj oldu</string>
+    <string name="island_battery_low">Düşük pil</string>
+    <string name="island_ringer_silent">Sessiz</string>
+    <string name="island_ringer_vibrate">Titreşim</string>
+    <string name="island_ringer_normal">Ses açık</string>
+    <string name="island_unknown_track">Bilinmeyen parça</string>
+
+    <string name="call_answer">Cevapla</string>
+    <string name="call_decline">Reddet</string>
+    <string name="call_hang_up">Kapat</string>
+
+    <string name="cd_play_pause">Oynat veya duraklat</string>
+    <string name="cd_next">Sonraki parça</string>
+    <string name="cd_previous">Önceki parça</string>
+    <string name="cd_artwork">Kapak görseli</string>
+    <string name="cd_app_icon">Uygulama simgesi</string>
+</resources>

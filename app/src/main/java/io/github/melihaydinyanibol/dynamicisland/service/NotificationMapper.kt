@@ -2,9 +2,12 @@ package io.github.melihaydinyanibol.dynamicisland.service
 
 import android.app.Notification
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import io.github.melihaydinyanibol.dynamicisland.R
+import io.github.melihaydinyanibol.dynamicisland.model.ActionRole
 import io.github.melihaydinyanibol.dynamicisland.model.ActivityType
 import io.github.melihaydinyanibol.dynamicisland.model.IslandAction
 import io.github.melihaydinyanibol.dynamicisland.model.IslandActivity
@@ -95,14 +98,12 @@ class NotificationMapper(private val context: Context) {
 
         val compactText = when (type) {
             ActivityType.NAVIGATION -> title
-            ActivityType.PROGRESS -> if (progressMax > 0) "${progress * 100 / progressMax}%" else null
+            ActivityType.PROGRESS ->
+                if (progressMax > 0) context.getString(R.string.island_percent, progress * 100 / progressMax) else null
             else -> null
         }
 
-        val actions = n.actions.orEmpty()
-            .filter { it.remoteInputs.isNullOrEmpty() && !it.title.isNullOrBlank() }
-            .take(MAX_ACTIONS)
-            .map { IslandAction(it.title, it.actionIntent) }
+        val actions = if (type == ActivityType.CALL) callActions(n) else plainActions(n)
 
         return IslandActivity(
             key = sbn.key,
@@ -127,6 +128,67 @@ class NotificationMapper(private val context: Context) {
         )
     }
 
+    private fun plainActions(n: Notification): List<IslandAction> =
+        n.actions.orEmpty()
+            .filter { it.remoteInputs.isNullOrEmpty() && !it.title.isNullOrBlank() }
+            .take(MAX_ACTIONS)
+            .map { IslandAction(it.title, it.actionIntent) }
+
+    /**
+     * Calls posted with `Notification.CallStyle` (Android 12+, used by One UI's dialer, Google
+     * Phone, WhatsApp, …) keep Answer / Decline / Hang up in extras rather than in [Notification.actions].
+     * Older call notifications are classified by their button labels.
+     */
+    private fun callActions(n: Notification): List<IslandAction> {
+        val extras = n.extras
+        val answer = extras.pendingIntent(EXTRA_ANSWER_INTENT)
+        val decline = extras.pendingIntent(EXTRA_DECLINE_INTENT)
+        val hangUp = extras.pendingIntent(EXTRA_HANG_UP_INTENT)
+
+        val result = mutableListOf<IslandAction>()
+        when {
+            decline != null -> result += IslandAction(context.getString(R.string.call_decline), decline, ActionRole.HANG_UP)
+            hangUp != null -> result += IslandAction(context.getString(R.string.call_hang_up), hangUp, ActionRole.HANG_UP)
+        }
+        if (answer != null) result += IslandAction(context.getString(R.string.call_answer), answer, ActionRole.ANSWER)
+
+        val known = setOf(answer, decline, hangUp)
+        n.actions.orEmpty()
+            .filter { it.remoteInputs.isNullOrEmpty() && !it.title.isNullOrBlank() && it.actionIntent !in known }
+            .forEach { action ->
+                val role = callRole(action.title)
+                if (role != ActionRole.NEUTRAL && result.any { it.role == role }) return@forEach
+                result += IslandAction(action.title, action.actionIntent, role)
+            }
+
+        if (result.none { it.role == ActionRole.HANG_UP }) {
+            // Still offer a hang-up button; the service ends the call through Telecom if it can.
+            result += IslandAction(context.getString(R.string.call_hang_up), null, ActionRole.HANG_UP)
+        }
+        // Red on the left, green on the right, extras in between — like the iOS call card.
+        val required = result.filter { it.role != ActionRole.NEUTRAL }
+        val neutral = result.filter { it.role == ActionRole.NEUTRAL }.take((MAX_ACTIONS - required.size).coerceAtLeast(0))
+        return (required + neutral).sortedBy {
+            when (it.role) {
+                ActionRole.HANG_UP -> 0
+                ActionRole.NEUTRAL -> 1
+                ActionRole.ANSWER -> 2
+            }
+        }
+    }
+
+    private fun callRole(title: CharSequence): ActionRole {
+        val text = title.toString().lowercase()
+        return when {
+            HANG_UP_WORDS.any { it in text } -> ActionRole.HANG_UP
+            ANSWER_WORDS.any { it in text } -> ActionRole.ANSWER
+            else -> ActionRole.NEUTRAL
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun android.os.Bundle.pendingIntent(key: String): PendingIntent? = get(key) as? PendingIntent
+
     /** Make dark brand colours visible on the black island. */
     private fun liftColor(color: Int): Int {
         val hsv = FloatArray(3)
@@ -138,6 +200,17 @@ class NotificationMapper(private val context: Context) {
     companion object {
         /** `Notification.CATEGORY_STOPWATCH`, added in API 31; spelled out so minSdk 30 is fine. */
         private const val CATEGORY_STOPWATCH = "stopwatch"
+
+        /** `Notification.EXTRA_*_INTENT` of CallStyle, added in API 31. */
+        private const val EXTRA_ANSWER_INTENT = "android.answerIntent"
+        private const val EXTRA_DECLINE_INTENT = "android.declineIntent"
+        private const val EXTRA_HANG_UP_INTENT = "android.hangUpIntent"
+
+        private val HANG_UP_WORDS = listOf(
+            "hang up", "end call", "decline", "reject", "dismiss call",
+            "kapat", "sonlandır", "reddet", "bitir",
+        )
+        private val ANSWER_WORDS = listOf("answer", "accept", "cevapla", "yanıtla", "kabul")
         private const val MAX_ACTIONS = 3
         private const val CALL_GREEN = 0xFF34C759.toInt()
         private const val TIMER_ORANGE = 0xFFFF9F0A.toInt()

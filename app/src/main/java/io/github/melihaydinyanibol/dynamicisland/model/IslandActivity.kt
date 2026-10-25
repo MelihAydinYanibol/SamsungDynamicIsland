@@ -39,9 +39,20 @@ data class MediaInfo(
     }
 }
 
+enum class ActionRole {
+    NEUTRAL,
+
+    /** Answer an incoming call. */
+    ANSWER,
+
+    /** Decline an incoming call or hang up an ongoing one. */
+    HANG_UP,
+}
+
 data class IslandAction(
     val title: CharSequence,
     val intent: PendingIntent?,
+    val role: ActionRole = ActionRole.NEUTRAL,
 )
 
 /**

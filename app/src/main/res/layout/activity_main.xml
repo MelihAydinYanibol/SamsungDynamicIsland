@@ -12,13 +12,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingStart="16dp"
-        android:paddingTop="56dp"
+        android:paddingTop="40dp"
         android:paddingEnd="16dp"
         android:paddingBottom="32dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@string/app_name"
@@ -34,6 +35,34 @@
             android:paddingEnd="8dp"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
+
+        <!-- Live preview: a real IslandRootView is added here at runtime. -->
+        <FrameLayout
+            android:id="@+id/preview_frame"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_preview"
+            android:clipChildren="true"
+            android:foreground="?android:attr/selectableItemBackground">
+
+            <View
+                android:id="@+id/preview_hole"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_camera_hole" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="@string/preview_hint"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
 
         <TextView
             style="@style/SectionTitle"
@@ -68,6 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -107,6 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -137,6 +168,46 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/perm_calls"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/perm_calls_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/perm_calls_button"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/perm_allow"
+                    android:textColor="@color/accent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="64dp"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="4dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="@string/perm_battery"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp" />
@@ -146,6 +217,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -162,6 +234,63 @@
 
         <TextView
             style="@style/SectionTitle"
+            android:text="@string/section_popups" />
+
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                android:id="@+id/popups_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:lineSpacingMultiplier="1.2"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="@string/popups_body"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/popups_command"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_code"
+                android:fontFamily="monospace"
+                android:padding="12dp"
+                android:textColor="@color/text_primary"
+                android:textIsSelectable="true"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/popups_copy"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/popups_copy"
+                android:textColor="@color/accent" />
+
+            <Switch
+                android:id="@+id/switch_replace_popups"
+                style="@style/SwitchRow"
+                android:text="@string/pref_replace_popups" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/SectionTitle"
             android:text="@string/section_features" />
 
         <LinearLayout style="@style/Card">
@@ -170,11 +299,6 @@
                 android:id="@+id/switch_enabled"
                 style="@style/SwitchRow"
                 android:text="@string/pref_enabled" />
-
-            <Switch
-                android:id="@+id/switch_show_idle"
-                style="@style/SwitchRow"
-                android:text="@string/pref_show_idle" />
 
             <Switch
                 android:id="@+id/switch_notifications"
@@ -200,6 +324,34 @@
                 android:id="@+id/switch_ringer"
                 style="@style/SwitchRow"
                 android:text="@string/pref_ringer" />
+
+            <Switch
+                android:id="@+id/switch_privacy"
+                style="@style/SwitchRow"
+                android:text="@string/pref_privacy" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/SectionTitle"
+            android:text="@string/section_behaviour" />
+
+        <LinearLayout style="@style/Card">
+
+            <Switch
+                android:id="@+id/switch_keep_idle_pill"
+                style="@style/SwitchRow"
+                android:text="@string/pref_keep_idle_pill" />
+
+            <Switch
+                android:id="@+id/switch_hide_shade"
+                style="@style/SwitchRow"
+                android:text="@string/pref_hide_shade" />
+
+            <Switch
+                android:id="@+id/switch_hide_fullscreen"
+                style="@style/SwitchRow"
+                android:text="@string/pref_hide_fullscreen" />
 
             <Switch
                 android:id="@+id/switch_hide_landscape"
@@ -304,6 +456,36 @@
 
                 <SeekBar
                     android:id="@+id/scale_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="12dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/RowLabel"
+                        android:text="@string/pref_width_scale" />
+
+                    <TextView
+                        android:id="@+id/width_scale_value"
+                        style="@style/RowValue" />
+                </LinearLayout>
+
+                <SeekBar
+                    android:id="@+id/width_scale_seek"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp" />

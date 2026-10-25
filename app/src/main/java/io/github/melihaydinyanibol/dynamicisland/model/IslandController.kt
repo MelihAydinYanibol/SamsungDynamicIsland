@@ -8,6 +8,8 @@ data class IslandUiState(
     val isAlert: Boolean = false,
     /** Number of live activities, so the UI can hint that more can be swiped to. */
     val liveCount: Int = 0,
+    /** Next live activity, shown as a small bubble beside the compact pill. */
+    val secondary: IslandActivity? = null,
 )
 
 /**
@@ -97,6 +99,13 @@ class IslandController(private val maxQueuedAlerts: Int = 5) {
         expanded = false
     }
 
+    /** Brings a specific live activity to the front. */
+    fun select(key: String): Boolean {
+        if (live.none { it.key == key }) return false
+        selectedKey = key
+        return true
+    }
+
     /** Switches to the next/previous live activity. Returns true if the selection changed. */
     fun cycle(forward: Boolean): Boolean {
         if (live.size < 2) return false
@@ -115,7 +124,8 @@ class IslandController(private val maxQueuedAlerts: Int = 5) {
         val activity = currentLive()
             ?: return IslandUiState(if (showIdle) IslandMode.IDLE else IslandMode.HIDDEN)
         val mode = if (expanded) IslandMode.EXPANDED else IslandMode.COMPACT
-        return IslandUiState(mode, activity, isAlert = false, liveCount = live.size)
+        val secondary = if (mode == IslandMode.COMPACT) live.firstOrNull { it.key != activity.key } else null
+        return IslandUiState(mode, activity, isAlert = false, liveCount = live.size, secondary = secondary)
     }
 
     companion object {

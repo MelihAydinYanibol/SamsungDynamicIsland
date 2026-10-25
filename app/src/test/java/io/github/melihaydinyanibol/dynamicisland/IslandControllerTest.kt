@@ -184,4 +184,29 @@ class IslandControllerTest {
         controller.collapse()
         assertEquals(IslandMode.COMPACT, controller.state().mode)
     }
+
+    @Test
+    fun secondaryBubbleShowsNextActivityOnlyWhenCompact() {
+        val controller = IslandController()
+        controller.setLive(listOf(activity("timer", ActivityType.TIMER), activity("media", ActivityType.MEDIA)))
+        assertEquals("media", controller.state().secondary?.key)
+
+        assertTrue(controller.select("media"))
+        assertEquals("media", controller.state().activity?.key)
+        assertEquals("timer", controller.state().secondary?.key)
+
+        controller.expand()
+        assertNull(controller.state().secondary)
+        assertFalse(controller.select("missing"))
+    }
+
+    @Test
+    fun noSecondaryWithSingleActivityOrAlert() {
+        val controller = IslandController()
+        controller.setLive(listOf(activity("timer", ActivityType.TIMER)))
+        assertNull(controller.state().secondary)
+        controller.setLive(listOf(activity("timer", ActivityType.TIMER), activity("media", ActivityType.MEDIA)))
+        controller.enqueueAlert(activity("a", ActivityType.NOTIFICATION))
+        assertNull(controller.state().secondary)
+    }
 }

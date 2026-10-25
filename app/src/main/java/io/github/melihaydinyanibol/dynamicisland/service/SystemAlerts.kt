@@ -2,10 +2,12 @@ package io.github.melihaydinyanibol.dynamicisland.service
 
 import android.content.Context
 import android.media.AudioManager
+import android.os.SystemClock
 import io.github.melihaydinyanibol.dynamicisland.R
 import io.github.melihaydinyanibol.dynamicisland.model.ActivityType
 import io.github.melihaydinyanibol.dynamicisland.model.BatteryPolicy
 import io.github.melihaydinyanibol.dynamicisland.model.IslandActivity
+import io.github.melihaydinyanibol.dynamicisland.model.MediaInfo
 import io.github.melihaydinyanibol.dynamicisland.util.appIcon
 
 /** Builders for the island content the app generates itself (battery, sound mode, demos). */
@@ -15,6 +17,7 @@ object SystemAlerts {
     const val KEY_RINGER = "system:ringer"
     const val KEY_TEST_NOTIFICATION = "test:notification"
     const val KEY_TEST_TIMER = "test:timer"
+    const val KEY_DEMO_MEDIA = "demo:media"
 
     fun charging(context: Context, level: Int) = IslandActivity(
         key = KEY_BATTERY,
@@ -25,7 +28,7 @@ object SystemAlerts {
         icon = context.getDrawable(R.drawable.ic_bolt),
         tintIcon = true,
         accentColor = BatteryPolicy.levelColor(level, charging = true),
-        compactText = "$level%",
+        compactText = context.getString(R.string.island_percent, level),
         expandOnAlert = false,
         timestamp = System.currentTimeMillis(),
     )
@@ -38,7 +41,7 @@ object SystemAlerts {
         icon = context.getDrawable(R.drawable.ic_battery_alert),
         tintIcon = true,
         accentColor = BatteryPolicy.levelColor(level, charging = false),
-        compactText = "$level%",
+        compactText = context.getString(R.string.island_percent, level),
         expandOnAlert = false,
         timestamp = System.currentTimeMillis(),
     )
@@ -51,7 +54,7 @@ object SystemAlerts {
         icon = context.getDrawable(R.drawable.ic_battery_full),
         tintIcon = true,
         accentColor = BatteryPolicy.GREEN,
-        compactText = "100%",
+        compactText = context.getString(R.string.island_percent, 100),
         expandOnAlert = false,
         timestamp = System.currentTimeMillis(),
     )
@@ -101,4 +104,28 @@ object SystemAlerts {
         countDown = true,
         timestamp = System.currentTimeMillis(),
     )
+
+    /** Sample "now playing" card for the settings preview. */
+    fun demoMedia(context: Context) = IslandActivity(
+        key = KEY_DEMO_MEDIA,
+        type = ActivityType.MEDIA,
+        packageName = context.packageName,
+        title = context.getString(R.string.demo_track_title),
+        subtitle = context.getString(R.string.demo_track_artist),
+        appName = context.getString(R.string.app_name),
+        icon = context.getDrawable(R.drawable.ic_music),
+        tintIcon = true,
+        accentColor = DEMO_ACCENT,
+        media = MediaInfo(
+            isPlaying = true,
+            durationMs = 214_000L,
+            positionMs = 71_000L,
+            positionSampledAt = SystemClock.elapsedRealtime(),
+            speed = 1f,
+            controls = null,
+        ),
+        timestamp = System.currentTimeMillis(),
+    )
+
+    private const val DEMO_ACCENT = 0xFFFF6FAE.toInt()
 }
