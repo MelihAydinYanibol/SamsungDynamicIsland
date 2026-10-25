@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dynamic Island</string>
+    <string name="accessibility_label">Dynamic Island overlay</string>
+    <string name="accessibility_description">Draws a Dynamic Island around the front camera that shows notifications, media, calls, timers and charging status. The service does not read screen content.</string>
+    <string name="notification_listener_label">Dynamic Island notifications</string>
+
+    <string name="device_supported">%1$s (%2$s) · tuned profile</string>
+    <string name="device_generic">%1$s · generic profile (cutout detected at runtime)</string>
+
+    <string name="section_permissions">Permissions</string>
+    <string name="section_features">Features</string>
+    <string name="section_layout">Position &amp; size</string>
+    <string name="section_try">Try it</string>
+    <string name="section_tips">Samsung tips</string>
+
+    <string name="perm_accessibility">Island overlay (Accessibility)</string>
+    <string name="perm_notifications">Notification access</string>
+    <string name="perm_battery">Unrestricted battery</string>
+    <string name="perm_granted">Enabled</string>
+    <string name="perm_missing">Required</string>
+    <string name="perm_optional">Recommended</string>
+    <string name="perm_open">Open settings</string>
+
+    <string name="pref_enabled">Show Dynamic Island</string>
+    <string name="pref_show_idle">Show pill when idle</string>
+    <string name="pref_notifications">Notification alerts</string>
+    <string name="pref_media">Now playing</string>
+    <string name="pref_live">Live activities (calls, timers, navigation, downloads)</string>
+    <string name="pref_charging">Charging &amp; battery alerts</string>
+    <string name="pref_ringer">Sound mode changes</string>
+    <string name="pref_hide_landscape">Hide in landscape</string>
+    <string name="pref_haptics">Haptic feedback</string>
+
+    <string name="pref_offset_x">Horizontal offset</string>
+    <string name="pref_offset_y">Vertical offset</string>
+    <string name="pref_scale">Size</string>
+    <string name="pref_alert_seconds">Alert duration</string>
+    <string name="value_dp">%1$d dp</string>
+    <string name="value_percent">%1$d%%</string>
+    <string name="value_seconds">%1$d s</string>
+
+    <string name="test_notification">Test notification</string>
+    <string name="test_charging">Test charging</string>
+    <string name="test_timer">Test live timer</string>
+    <string name="test_stop">Clear tests</string>
+    <string name="test_notification_title">Hello from your Dynamic Island</string>
+    <string name="test_notification_text">Tap to open, swipe up to dismiss, long-press for more.</string>
+    <string name="test_timer_title">Test timer</string>
+    <string name="enable_overlay_first">Enable the island overlay first</string>
+    <string name="version_format">Version %1$s</string>
+
+    <string name="tips_body">• Android 13+ blocks Accessibility for sideloaded apps: open App info → ⋮ → Allow restricted settings, then enable the overlay.\n• Settings → Battery → Background usage limits → add Dynamic Island to “Never sleeping apps”.\n• Gestures: tap to expand, long-press to open the app, swipe up to collapse, swipe sideways to switch activities.</string>
+
+    <string name="island_charging">Charging</string>
+    <string name="island_battery_full">Fully charged</string>
+    <string name="island_battery_low">Low battery</string>
+    <string name="island_ringer_silent">Silent</string>
+    <string name="island_ringer_vibrate">Vibrate</string>
+    <string name="island_ringer_normal">Sound on</string>
+    <string name="island_unknown_track">Unknown title</string>
+
+    <string name="cd_play_pause">Play or pause</string>
+    <string name="cd_next">Next track</string>
+    <string name="cd_previous">Previous track</string>
+    <string name="cd_artwork">Artwork</string>
+    <string name="cd_app_icon">App icon</string>
+</resources>

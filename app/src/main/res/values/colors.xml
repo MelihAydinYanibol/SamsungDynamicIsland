@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="island_background">#FF000000</color>
+    <color name="island_text_primary">#FFFFFFFF</color>
+    <color name="island_text_secondary">#FFA3A3A8</color>
+    <color name="island_button">#FF242426</color>
+    <color name="island_green">#FF34C759</color>
+    <color name="island_red">#FFFF453A</color>
+    <color name="island_orange">#FFFF9F0A</color>
+    <color name="island_blue">#FF0A84FF</color>
+
+    <color name="screen_background">#FFF6F6F8</color>
+    <color name="card_background">#FFFFFFFF</color>
+    <color name="text_primary">#FF111111</color>
+    <color name="text_secondary">#FF6B6B70</color>
+    <color name="accent">#FF3E7BFA</color>
+</resources>
