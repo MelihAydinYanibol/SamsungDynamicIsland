@@ -88,7 +88,7 @@ class MediaSessionTracker(
 
     private fun publish() {
         val controllers = tracked.values.map { it.first }
-        val playing = controllers.firstOrNull { it.playbackState?.isActive() == true && it.metadata != null }
+        val playing = controllers.firstOrNull { it.playbackState?.isPlayingOrBuffering() == true && it.metadata != null }
         val paused = controllers.firstOrNull {
             it.playbackState?.state == PlaybackState.STATE_PAUSED && it.metadata != null
         }
@@ -132,7 +132,7 @@ class MediaSessionTracker(
         val transport = controller.transportControls
         val controls = object : MediaControls {
             override fun playPause() {
-                if (controller.playbackState?.isActive() == true) transport.pause() else transport.play()
+                if (controller.playbackState?.isPlayingOrBuffering() == true) transport.pause() else transport.play()
             }
             override fun next() = transport.skipToNext()
             override fun previous() = transport.skipToPrevious()
@@ -140,7 +140,7 @@ class MediaSessionTracker(
         }
 
         val media = MediaInfo(
-            isPlaying = state?.isActive() == true,
+            isPlaying = state?.isPlayingOrBuffering() == true,
             durationMs = metadata?.getLong(MediaMetadata.METADATA_KEY_DURATION)?.coerceAtLeast(0) ?: 0L,
             positionMs = state?.position ?: 0L,
             positionSampledAt = state?.lastPositionUpdateTime ?: 0L,
@@ -164,7 +164,7 @@ class MediaSessionTracker(
         )
     }
 
-    private fun PlaybackState.isActive(): Boolean =
+    private fun PlaybackState.isPlayingOrBuffering(): Boolean =
         state == PlaybackState.STATE_PLAYING || state == PlaybackState.STATE_BUFFERING
 
     companion object {
