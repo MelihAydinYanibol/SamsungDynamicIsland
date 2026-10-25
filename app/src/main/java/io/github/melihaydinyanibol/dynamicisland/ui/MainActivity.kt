@@ -4,7 +4,6 @@ import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.Activity
 import android.app.NotificationManager
 import android.content.ActivityNotFoundException
-import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.BatteryManager
@@ -125,12 +124,7 @@ class MainActivity : Activity() {
         getSystemService(PowerManager::class.java).isIgnoringBatteryOptimizations(packageName)
 
     private fun openAccessibilitySettings() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val component = ComponentName(this, IslandAccessibilityService::class.java)
-            val detail = Intent(Settings.ACTION_ACCESSIBILITY_DETAILS_SETTINGS)
-                .putExtra(Intent.EXTRA_COMPONENT_NAME, component.flattenToString())
-            if (tryStart(detail)) return
-        }
+        // On One UI the service is listed under Accessibility → Installed apps.
         tryStart(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
     }
 
